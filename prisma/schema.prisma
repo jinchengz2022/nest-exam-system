@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  userId     Int      @unique @default(autoincrement())
+  userName   String   @unique @db.Char(20)
+  password   String   @db.Char(100)
+  email      String   @db.Char(30)
+  createTime DateTime @default(now())
+  updateTime DateTime @updatedAt
+  Exam       Exam[]
+  Answer     Answer[]
+}
+
+model Exam {
+  examId       Int      @unique @default(autoincrement())
+  createUserId Int      @db.Int
+  name         String   @db.Char(20)
+  isPublish    Boolean  @default(false)
+  isDelete     Boolean  @default(false)
+  content      String   @db.Char(100)
+  createTime   DateTime @default(now())
+  updateTime   DateTime @updatedAt
+
+  a      Int
+  UserId User @relation(fields: [examId], references: [userId])
+}
+
+model Answer {
+  answerId     Int      @unique @default(autoincrement())
+  answerUserId Int
+  examId       Int
+  content      String   @db.Char(100)
+  score        Int
+  createTime   DateTime @default(now())
+  updateTime   DateTime @updatedAt
+
+  a      Int
+  UserId User @relation(fields: [answerId], references: [userId])
+}
