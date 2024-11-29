@@ -20,22 +20,22 @@ model User {
   email      String   @db.Char(30)
   createTime DateTime @default(now())
   updateTime DateTime @updatedAt
-  Exam       Exam[]
-  Answer     Answer[]
+
+  exams  Exam[]
+  Answer Answer[]
 }
 
 model Exam {
-  examId       Int      @unique @default(autoincrement())
-  createUserId Int      @db.Int
-  name         String   @db.Char(20)
-  isPublish    Boolean  @default(false)
-  isDelete     Boolean  @default(false)
-  content      String   @db.Char(100)
-  createTime   DateTime @default(now())
-  updateTime   DateTime @updatedAt
+  examId     Int      @unique @default(autoincrement())
+  name       String   @db.Char(20)
+  isPublish  Boolean  @default(false)
+  isDelete   Boolean  @default(false)
+  content    String   @db.Char(100)
+  createTime DateTime @default(now())
+  updateTime DateTime @updatedAt
 
-  a      Int
-  UserId User @relation(fields: [examId], references: [userId])
+  createUserId Int
+  createUesr   User @relation(fields: [createUserId], references: [userId])
 }
 
 model Answer {

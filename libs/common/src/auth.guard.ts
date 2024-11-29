@@ -27,7 +27,7 @@ export class AuthGuard implements CanActivate {
   @Inject()
   private reflector: Reflector;
 
-  @Inject(JwtService)
+  @Inject()
   private jwtService: JwtService;
 
   canActivate(
@@ -59,21 +59,21 @@ export class AuthGuard implements CanActivate {
         userName: data.userName,
       };
 
-      response.header(
-        'token',
-        this.jwtService.sign(
-          {
-            userId: data.userId,
-            userName: data.userName,
-          },
-          {
-            expiresIn: '7d',
-          },
-        ),
-      );
+      // response.header(
+      //   'token',
+      //   this.jwtService.sign(
+      //     {
+      //       userId: data.userId,
+      //       userName: data.userName,
+      //     },
+      //     {
+      //       expiresIn: '7d',
+      //     },
+      //   ),
+      // );
       return true;
     } catch (error) {
-      throw new UnauthorizedException('token已失效请重新登录');
+      throw new UnauthorizedException(String(error));
     }
   }
 }

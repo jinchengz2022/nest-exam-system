@@ -14,17 +14,6 @@ import { APP_GUARD } from '@nestjs/core';
     RedisModule,
     PrismaModule,
     EmailModule,
-    JwtModule.registerAsync({
-      global: true,
-      useFactory() {
-        return {
-          secret: 'jincheng',
-          signOptions: {
-            expiresIn: '30m',
-          },
-        };
-      },
-    }),
   ],
   controllers: [UserController],
   providers: [
