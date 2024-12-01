@@ -95,6 +95,7 @@ export class UserService {
           expiresIn: '7d',
         },
       ),
+      ...foundUser,
     };
   }
 

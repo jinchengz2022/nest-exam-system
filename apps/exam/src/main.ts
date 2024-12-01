@@ -8,6 +8,8 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
+  app.enableCors();
+
   await app.startAllMicroservices();
   app.connectMicroservice({
     transport: Transport.TCP,

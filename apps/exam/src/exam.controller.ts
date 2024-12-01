@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   Query,
+  Put,
 } from '@nestjs/common';
 import { ExamService } from './exam.service';
 import { MessagePattern } from '@nestjs/microservices';
@@ -54,7 +55,7 @@ export class ExamController {
     return this.examService.saveExam(params);
   }
 
-  @Delete('PublishExam/:id')
+  @Put('PublishExam/:id')
   @RequireLogin()
   publishExam(@Param('id') id: number) {
     return this.examService.publishExam(id);
