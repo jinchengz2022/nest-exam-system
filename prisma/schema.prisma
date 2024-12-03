@@ -35,18 +35,21 @@ model Exam {
   updateTime DateTime @updatedAt
 
   createUserId Int
-  createUesr   User @relation(fields: [createUserId], references: [userId])
+  createUesr   User     @relation(fields: [createUserId], references: [userId])
+  
+  Answer       Answer[]
 }
 
 model Answer {
-  answerId     Int      @unique @default(autoincrement())
-  answerUserId Int
-  examId       Int
-  content      String   @db.Char(100)
-  score        Int
-  createTime   DateTime @default(now())
-  updateTime   DateTime @updatedAt
+  answerId   Int      @unique @default(autoincrement())
+  content    String   @db.Char(100)
+  score      Int
+  createTime DateTime @default(now())
+  updateTime DateTime @updatedAt
 
-  a      Int
-  UserId User @relation(fields: [answerId], references: [userId])
+  answerUserId Int
+  answer       User @relation(fields: [answerUserId], references: [userId])
+
+  answerExamId Int
+  exam         Exam @relation(fields: [answerExamId], references: [examId])
 }
